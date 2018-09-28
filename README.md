@@ -9,5 +9,5 @@ online changes
 
 Update README
 
-Made a small change
+Make sure all changes are committed
 

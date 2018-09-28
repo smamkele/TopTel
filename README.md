@@ -6,3 +6,8 @@ git clone https://github.com/smamkele/TopTel.git
 To clone using SSH use this link git@github.com:smamkele/TopTel.git
 
 online changes
+
+Update README
+
+Made a small change
+

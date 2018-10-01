@@ -1,0 +1,58 @@
+<html>
+    <head>
+        <title> My 2nd HTML page</title>
+        <link rel="stylesheet" type="text/css" 
+        media="screen" 
+        href="bulma.css"/>
+    </head>
+    <body>
+        <script>
+        window.onload=function (){
+            var submitButton= document.getElementById('submit')
+             submitButton.addEventListener('click',function(event){
+                alert('clicked on submit button')
+             })
+        }
+        </script>
+        <h1> Client details</h1>
+        <p></p>
+     <div class="container">
+          <form class="form">
+                <div class="field">
+                        <label class="label">Name</label>
+                        <input class="input" type="text"/>
+                    </div>
+                    <div class="field">
+                        <label class="label">Surname</label>
+                        <input class="input" type="text"/>
+
+                    </div>
+                    <div class="field">
+                        <label class="label">Age   </label>
+                        <input class="input" type="number"/>
+                    </div>
+                        <div class="field">
+                        <label class="label">Gender</label>
+                        <input class="input" type="text"/>
+                    </div>
+                    <div class="field">
+                        <label class="label">Address</label>
+                        <input class="input" type="text"/>
+                    </div>
+                    <div class="field">
+                        <label class="label">Phone </label>
+                        <input class="input" type="number"/>
+                    </div>
+                                
+
+                    <input type="submit" 
+                     value="Submit" 
+                     class="button is-primary"                  
+                    />
+           </form>
+        </div>
+
+        
+
+    </body>
+</html>

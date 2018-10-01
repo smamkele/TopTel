@@ -58,14 +58,17 @@ function  validateSurname() {
  */
 function validateAge(){
     var age = document.getElementById('age')
-    if(age.value < 18){
-      alert(" Too young !! You are not eligible for this form")
+    var tooYoungMessage = document.getElementById('age-error-young')
+    var middleErrorMessage = document.getElementById('age-error-middle')
+    var oldErrorMessage =document.getElementById('age-error-old')
+    if(age.value < 18){     
+     tooYoungMessage.classList.remove('is-invisible')
     }
-    else if(age.value > 38 && age.value <42){
-        alert(" In the middle !! You are not eligible for this form")
+    else if(age.value > 38 && age.value < 42){
+        middleErrorMessage.classList.remove('is-invisible')
     }
     else if(age.value > 64){
-        alert(" Too old !! You are not eligible for this form")
+        oldErrorMessage.classList.remove('is-invisible')
     }
 }
 
@@ -75,7 +78,12 @@ function validateAge(){
  */
 function  validatePhone() {
     var phone = document.getElementById('phone')
-    if(phone.length !==10 ){
-        alert("phone number must be 10 numbers")
+    var phoneErrorMessage=document.getElementById('phone-error')
+    var codeErrorMessage= document.getElementById('code-error')
+    if(phone.length !==10 && phone.value===073 ){
+        phoneErrorMessage.classList.remove('is-invisible')
+    }
+    else{
+        codeErrorMessage.classList.remove('is-invisible')
     }
 }

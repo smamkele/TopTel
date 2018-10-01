@@ -34,8 +34,12 @@
                         <input id="age"
                          class="input" 
                          type="number"/>
-                        <p id="age-error"
-                         class="help is-danger is-invisible">age required</p>
+                         <p id="age-error-young" 
+                         class="help is-danger is-invisible">Too young !! You are not eligible for this form</p>
+                         <p id="age-error-middle" 
+                         class="help is-danger is-invisible">In the middle !! You are not eligible for this form</p>
+                         <p id="age-error-old" 
+                         class="help is-danger is-invisible">Too old !! You are not eligible for this form</p>
                     </div>
                         <div class="field">
                         <label class="label">Gender</label>
@@ -52,7 +56,10 @@
                         <input id="phone" 
                         class="input"
                          type="number"/>
-                        <p class="help is-danger is-invisible">Phone required</p>
+                         <p id="phone-error"
+                         class="help is-danger is-invisible">number must be 10 digit long</p>
+                         <p id="code-error"
+                         class="help is-danger is-invisible">number must start with 073</p>
                     </div>
                                 
 

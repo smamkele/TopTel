@@ -3,65 +3,79 @@ window.onload = function () {
     
     submitButton.addEventListener('click', function(event) {
         event.preventDefault()
-        
-        var name = getName()
-        var surname = getSurname()
-        var age = getAge()
-        var phone = getPhone()
-
-        if(age < 18) {
-            alert("You are not old enough to use this form")
-        } 
-        else if(name == "" || name == undefined) {
-            alert("you must enter a name")
-        }
-        else if(surname == "" || surname == undefined) {
-            alert("you must enter a surname")
-        }
-        else if(phone.length !== 10) {
-            alert("phone number must be 10 digits long")
-        }
-        else {
-            alert(
-                "Hello " + name + " " + surname + 
-                ". You are " + age + " years old!")
-        }
+        validateName() 
+        validateSurname()
+        validateAge()
+        validatePhone()
     })
-
 }
+
 
 /**
  * This function gets the name 
  * from the name input
  */
-function getName() {
+function validateName() {
     var name = document.getElementById('name')
-    return name.value
+    var nameErrorMessage = document.getElementById('name-error')
+    if(name.value ==="" || name.value === undefined)
+    // show error message
+    {
+       nameErrorMessage.classList.remove('is-invisible')
+ 
+    }
+    else{
+        nameErrorMessage.classList.add('is-invisible')
+  
+    }
+
 }
 
 /**
  * This function gets the surname
  * from the surname input
  */
-function getSurname() {
+function  validateSurname() {
     var surname = document.getElementById('surname')
-    return surname.value
+    var surnameErrorMessage = document.getElementById('surname-error')
+    if(surname.value ==="" || surname.value === undefined)
+    // show error message
+    {
+       surnameErrorMessage.classList.remove('is-invisible')
+ 
+    }
+    else{
+        surnameErrorMessage.classList.add('is-invisible')
+  
+    }
+
 }
+
 
 /**
  * This function gets the age
  * from the age input
  */
-function getAge() {
+function validateAge(){
     var age = document.getElementById('age')
-    return age.value
+    if(age.value < 18){
+      alert(" Too young !! You are not eligible for this form")
+    }
+    else if(age.value > 38 && age.value <42){
+        alert(" In the middle !! You are not eligible for this form")
+    }
+    else if(age.value > 64){
+        alert(" Too old !! You are not eligible for this form")
+    }
 }
 
 /**
  * This function gets the phone
  * number form the phone input
  */
-function getPhone() {
+function  validatePhone() {
     var phone = document.getElementById('phone')
-    return phone.value
+    if(phone.length !==10 ){
+        alert("phone number must be 10 numbers")
+    }
 }

@@ -13,32 +13,51 @@
           <form class="form">
                 <div class="field">
                         <label class="label">Name</label>
-                        <input class="input" type="text"/>
+                        <input id="name"
+                         class="input" 
+                         type="text"/>
+                        <p id="name-error"
+                         class="help is-danger 
+                         is-invisible">must enter a valid name</p>
                     </div>
                     <div class="field">
                         <label class="label">Surname</label>
-                        <input class="input" type="text"/>
+                        <input id="surname" 
+                        class="input"
+                         type="text"/>
+                        <p id="surname-error"
+                        class="help is-danger is-invisible">Surname required</p>
 
                     </div>
                     <div class="field">
                         <label class="label">Age   </label>
-                        <input class="input" type="number"/>
+                        <input id="age"
+                         class="input" 
+                         type="number"/>
+                        <p id="age-error"
+                         class="help is-danger is-invisible">age required</p>
                     </div>
                         <div class="field">
                         <label class="label">Gender</label>
                         <input class="input" type="text"/>
+                        <p class="help is-danger is-invisible">Gender required</p>
                     </div>
                     <div class="field">
                         <label class="label">Address</label>
                         <input class="input" type="text"/>
+                        <p class="help is-danger is-invisible">Address required</p>
                     </div>
                     <div class="field">
                         <label class="label">Phone </label>
-                        <input class="input" type="number"/>
+                        <input id="phone" 
+                        class="input"
+                         type="number"/>
+                        <p class="help is-danger is-invisible">Phone required</p>
                     </div>
                                 
 
-                    <input type="submit" 
+                    <input id="submit"
+                     type="submit" 
                      value="Submit" 
                      class="button is-primary"                  
                     />

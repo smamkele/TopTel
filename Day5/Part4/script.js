@@ -80,7 +80,7 @@ function  validatePhone() {
     var phone = document.getElementById('phone')
     var phoneErrorMessage=document.getElementById('phone-error')
     var codeErrorMessage= document.getElementById('code-error')
-    if(phone.length !==10 && phone.value===073 ){
+    if(phone.length !==10 && phone.value !==073 ){
         phoneErrorMessage.classList.remove('is-invisible')
     }
     else{

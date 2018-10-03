@@ -1,0 +1,105 @@
+<html>
+    <head>
+        <title> My 3rd HTML page</title>
+        <link rel="stylesheet" type="text/css" 
+        media="screen" 
+        href="bulma.css"/>
+    </head>
+    <body>
+    <div id="login-form" class="container">
+        <form class="form is-half">
+                  <div class="field">
+                       <label class="label">Client Id</label>
+                        <input id="client-id"
+                               class="input" 
+                              type="text"/>
+                    </div>
+                    <div class="field">
+                          <label class="label">Client Secret</label>
+                          <input id="client-secret"
+                                 class="input" 
+                                 type="text"/>
+                    </div>
+                    <div class="field">
+                          <input id="submit"
+                                type="submit" 
+                               value="Submit"
+                               class="button is-primary"                  
+                            />
+                    </div>
+                    <div id="result">
+                        Results goes here
+                    </div>
+         </form>
+    </div> 
+    <!-- This will list the agencies-->
+    <div class="container" id="agencies">
+        <form class="form is-half">
+          <div class="field">
+            <label class="label">Agencies</label>
+            <select id="agencies-select" 
+                    type="text" >
+            <option value="" disabled="disabled">No agencies available</option>
+            </select>
+    </div>
+        
+        <div class="field">
+          <input type="submit"
+                 id="submit-agency" 
+                 value="Select Agency "
+                 class="button is-primary"/>
+        </div>
+        </form>
+    </div>
+
+      <!-- this form will list the lines-->
+      <div class ="container" id="lines">
+        <form class ="form is-half" >
+            <div class ="field">
+                <label class ="label">Lines</label>
+                <select id ="lines-select" type="text" >
+                <option value ="" disabled="disabled">No lines available</option>
+                </select>
+            </div>
+            
+            <div class="field">
+            <input type="submit"
+                    id="submit-lines" 
+                    value=" Get lines"
+                    class="button is-primary"/>
+            <input type="submit"
+                    id="back" 
+                    value=" Back"
+                    class="button is-primary"/>        
+            </div>
+        </form>
+      </div>
+
+      <!--Logout form-->
+    <div class="container" id="logout-form">
+        <form class="form is-half">
+            <div class="field">
+                <input
+                    type="submit"
+                    id="submit-logout"
+                    value="logout"
+                    class="button is-danger"/>
+            </div>
+        </form>
+      </div>
+      <div class="container">
+          <div class="gmap_canvas">
+              <iframe width="600" height="500" id="gmap_canvas"
+               src="https://maps.google.com/maps?q=south%20africa%20delft&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0">
+              </iframe>
+              <a href="https://www.pureblack.de">pure black</a>
+          </div><style>.mapouter{text-align:right;height:500px;width:600px;}.gmap_canvas {overflow:hidden;background:none!important;height:500px;width:600px;}</style></div>
+
+
+        <script src="script.js"></script>
+        
+
+    </body>
+
+
+</html>

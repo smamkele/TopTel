@@ -2,27 +2,46 @@ window.onload = function () {
     show('login-form')
 
     try{
-        getAgencies(getToken())
-        show('agencies')
+      getToken()
+        show('journey-form')
+     
 
     } catch (error){
         console.log("unable to get token")
     }
-          
-        loadmap() 
-        loadButtonEvent()
-   
- 
-}
-function loadmap(){
-    mapboxgl.accessToken = 'pk.eyJ1Ijoic2ltYW1rZWxlIiwiYSI6ImNqbXQ5bHoybjA1aTkzdnMwZ2hkcW9hbDEifQ.1vyvKiOzmVpUyG6R3o-Zkg';
-    var map = new mapboxgl.Map({
-      container: 'map',
-      style: 'mapbox://styles/mapbox/streets-v10'
-    })
-}
+      
+    loadmap()
+    loadButtonEvent()
+} 
+    function loadmap(){
+        mapboxgl.accessToken = 'pk.eyJ1Ijoic2ltYW1rZWxlIiwiYSI6ImNqbXQ5bHoybjA1aTkzdnMwZ2hkcW9hbDEifQ.1vyvKiOzmVpUyG6R3o-Zkg';
+        window.map = new mapboxgl.Map({
+          container: 'map',
+          style: 'mapbox://styles/mapbox/streets-v10',
+          center: [18.4241,-33.9249],
+          zoom:9
+        })
+        window.startPin = new mapboxgl.Marker({draggable:true}).setLngLat([0,0])
+        window.destinationPin = new mapboxgl.Marker({draggable:true}).setLngLat([0,0]).addTo(window.map)
 
-function loadButtonEvent(){
+        window.map.on('click',function(event){         
+           if(window.startPoint == true){
+               window.destinationPin.setLngLat(event.lngLat)
+               window.startPoint = false
+               document.getElementById('destination').value =event.lngLat.lng + ','+ event.lngLat.lat
+
+               
+           }
+           else {
+               window.startPin.setLngLat(event.lngLat)
+               window.startPoint = true
+               document.getElementById('start').value = event.lngLat.lng + ','+ event.lngLat.lat
+
+           }
+        })
+    }
+    
+    function loadButtonEvent(){  
     var submitButton = document.getElementById('submit')    
     submitButton.addEventListener('click', function(event) {
         event.preventDefault()
@@ -38,6 +57,14 @@ function loadButtonEvent(){
 
            show('login-form')
        })
+       var journeyButton = document.getElementById('submit-journey')
+       journeyButton.addEventListener('click',function(event){
+           event.preventDefault()
+           var start = document.getElementById('start').value
+           var destination = document.getElementById('destination').value
+
+           alert(start + ',' + destination)
+       })
     
     var submitAgency = document.getElementById('submit-agency')    
     submitAgency.addEventListener('click', function(event) {
@@ -52,17 +79,19 @@ function loadButtonEvent(){
         event.preventDefault()
         show('agencies')
     })
+  
 }
-
 function show(formId){
     document.getElementById('login-form').style.display='none'
     document.getElementById('agencies').style.display ='none'
     document.getElementById('lines').style.display ='none'
     document.getElementById('logout-form').style.display ='none'
+    document.getElementById('map-form').style.display = 'none'
 
     document.getElementById(formId).style.display = 'block'
-    if(formId == 'agencies'){
+    if(formId == 'journey-form'){
         document.getElementById('logout-form').style.display = 'block'
+        document.getElementById('map-form').style.display = 'block'
     }
 }
 function getToken(){
@@ -114,7 +143,7 @@ if(this.status == 200) {
     localStorage.setItem('token', token)
     localStorage.setItem('storageDate', Date.now().toLocaleString())
 
-        show('agencies')
+        show('journey-form')
         getAgencies(getToken())
 } else {
     console.log("get token call failed")

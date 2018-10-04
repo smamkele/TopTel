@@ -2,27 +2,45 @@ window.onload = function () {
     show('login-form')
 
     try{
-        getAgencies(getToken())
-        show('agencies')
+      getToken()
+        show('journey-form')
+     
 
     } catch (error){
         console.log("unable to get token")
     }
-          
-        loadmap() 
-        loadButtonEvent()
-   
- 
-}
-function loadmap(){
-    mapboxgl.accessToken = 'pk.eyJ1Ijoic2ltYW1rZWxlIiwiYSI6ImNqbXQ5bHoybjA1aTkzdnMwZ2hkcW9hbDEifQ.1vyvKiOzmVpUyG6R3o-Zkg';
-    var map = new mapboxgl.Map({
-      container: 'map',
-      style: 'mapbox://styles/mapbox/streets-v10'
+      
+    loadMap()
+    loadButtonEvent()
+} 
+function loadMap() {
+    mapboxgl.accessToken = 'pk.eyJ1IjoidXdjbGVjdHVyZXIiLCJhIjoiY2ptdWJ6aWt1MGQ4aDN3bzhiM2V1dnRiYyJ9.lWYq773rwVmRzbyHcYAVHw'
+    window.map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/streets-v10',
+        center: [18.4241, -33.9249], // starting position [lng, lat]
+        zoom: 9
     })
-}
 
-function loadButtonEvent(){
+    window.startPin = new mapboxgl.Marker({ draggable: true }).setLngLat([0, 0]).addTo(window.map)
+    window.destinationPin = new mapboxgl.Marker({ draggable: true }).setLngLat([0, 0]).addTo(window.map)
+
+    window.map.on('click', function (event) {
+        console.log(event)
+        if(window.startPoint == true) {
+            window.destinationPin.setLngLat(event.lngLat)
+            window.startPoint = false
+            document.getElementById('destination').value = event.lngLat.lng + ',' + event.lngLat.lat 
+        } else {
+            window.startPin.setLngLat(event.lngLat)
+            window.startPoint = true
+            document.getElementById('start').value = event.lngLat.lng + ',' + event.lngLat.lat
+        }
+    })
+
+}
+    
+    function loadButtonEvent(){  
     var submitButton = document.getElementById('submit')    
     submitButton.addEventListener('click', function(event) {
         event.preventDefault()
@@ -38,6 +56,14 @@ function loadButtonEvent(){
 
            show('login-form')
        })
+       var journeyButton = document.getElementById('submit-journey')
+       journeyButton.addEventListener('click',function(event){
+            event.preventDefault()
+            var start = document.getElementById('start').value
+            var destination = document.getElementById('destination').value
+            var token = getToken()
+              getJourney(token)           
+       })
     
     var submitAgency = document.getElementById('submit-agency')    
     submitAgency.addEventListener('click', function(event) {
@@ -52,17 +78,19 @@ function loadButtonEvent(){
         event.preventDefault()
         show('agencies')
     })
+  
 }
-
 function show(formId){
     document.getElementById('login-form').style.display='none'
     document.getElementById('agencies').style.display ='none'
     document.getElementById('lines').style.display ='none'
     document.getElementById('logout-form').style.display ='none'
+    document.getElementById('map-form').style.display = 'none'
 
     document.getElementById(formId).style.display = 'block'
-    if(formId == 'agencies'){
+    if(formId == 'journey-form'){
         document.getElementById('logout-form').style.display = 'block'
+        document.getElementById('map-form').style.display = 'block'
     }
 }
 function getToken(){
@@ -114,7 +142,7 @@ if(this.status == 200) {
     localStorage.setItem('token', token)
     localStorage.setItem('storageDate', Date.now().toLocaleString())
 
-        show('agencies')
+        show('journey-form')
         getAgencies(getToken())
 } else {
     console.log("get token call failed")
@@ -181,4 +209,34 @@ function addLinesToDropDown(lineslist){
         lineslist.forEach(function(lines) {
         linesSelect.options.add(new Option(lines.name, lines.id, false, false))
 })  
+}
+function getJourney(token){
+    var start = document.getElementById('start').value
+    var destination = document.getElementById('destination').value
+
+    start = start.split(',')
+    destination = destination.split(',')
+
+    var request = new XMLHttpRequest();
+    var payload ={
+
+    "geometry": {
+        "type": "MultiPoint",
+        "coordinates": [           
+                start,   
+                destination,           
+        ]
+    },
+    "maxItineraries": 5
+    }
+     request.addEventListener('load',function(){
+         var response = JSON.parse(this.responseText);
+         console.log(response)
+     })
+
+    request.open('POST', 'https://platform.whereismytransport.com/api/journeys', true);
+    request.setRequestHeader('Accept', 'application/json');
+    request.setRequestHeader('Content-Type', 'application/json ' + token);
+    request.setRequestHeader('Authorization', 'Bearer ' + token);
+    request.send(JSON.stringify(payload));
 }

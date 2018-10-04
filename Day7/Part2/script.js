@@ -8,10 +8,21 @@ window.onload = function () {
     } catch (error){
         console.log("unable to get token")
     }
-      
-        
-    
+          
+        loadmap() 
+        loadButtonEvent()
    
+ 
+}
+function loadmap(){
+    mapboxgl.accessToken = 'pk.eyJ1Ijoic2ltYW1rZWxlIiwiYSI6ImNqbXQ5bHoybjA1aTkzdnMwZ2hkcW9hbDEifQ.1vyvKiOzmVpUyG6R3o-Zkg';
+    var map = new mapboxgl.Map({
+      container: 'map',
+      style: 'mapbox://styles/mapbox/streets-v10'
+    })
+}
+
+function loadButtonEvent(){
     var submitButton = document.getElementById('submit')    
     submitButton.addEventListener('click', function(event) {
         event.preventDefault()
@@ -41,7 +52,8 @@ window.onload = function () {
         event.preventDefault()
         show('agencies')
     })
-  
+}
+
 function show(formId){
     document.getElementById('login-form').style.display='none'
     document.getElementById('agencies').style.display ='none'

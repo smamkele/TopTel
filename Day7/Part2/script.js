@@ -42,7 +42,6 @@ window.onload = function () {
         show('agencies')
     })
   
-}
 function show(formId){
     document.getElementById('login-form').style.display='none'
     document.getElementById('agencies').style.display ='none'
